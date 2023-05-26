@@ -1,5 +1,3 @@
-import { config } from 'dotenv'
-config();
 import { Configuration, OpenAIApi } from "openai";
 
 // load environment variables

@@ -1,17 +1,19 @@
 import { NextApiRequest,NextApiResponse } from "next";
 import { openAi } from "@/config/openAI";
 
+
 export default async (req:NextApiRequest,res:NextApiResponse) =>{
+    
 
     type Input = {
         question:string
-        input:string
+        prompt:string
     }
 
-    const { question, input }:Input = req.body;
+    const { question, prompt }:Input = req.body;
 
     const premessage :string = 'You are study buddy , you will help students with studies. Give me answer of following question.'
-    const postmessage :string = `${question} , ${input}`
+    const postmessage :string = `${question} , ${prompt}`
 
     const response = await openAi.createChatCompletion({
         model:"gpt-3.5-turbo",
@@ -24,4 +26,5 @@ export default async (req:NextApiRequest,res:NextApiResponse) =>{
 
     res.status(200).json(response.data.choices[0].message?.content);  
 
+    
 }
