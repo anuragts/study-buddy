@@ -1,13 +1,10 @@
-import { Inter } from "next/font/google";
 import { useState } from "react";
 import axios from "axios";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [question, setQuestion] = useState<string>("");
   const [prompt, setPrompt] = useState<string>("");
-  const [data, setData] = useState<string>("");
+  const [data, setData] = useState<string>("Nothing here now !");
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,37 +23,36 @@ export default function Home() {
   };
 
   return (
-    <main className="flex justify-center items-center h-screen">
-    <div className="max-w-md bg-gray-100 rounded-lg p-4 shadow-md">
-      <form onSubmit={handleSubmit}>
-        <input
-          className="p-5 m-5 text-2xl font-bold text-center bg-gray-100 rounded-xl text-black focus:outline-none"
-          type="text"
-          autoComplete="off"
+    <main className="flex flex-col h-screen">
+    <div className="flex-1 overflow-y-auto p-4">
+      {loading ? <div>Loading...</div> : <div className="text-xl">{data}</div>}
+    </div>
+    <div className="flex-none">
+      <form onSubmit={handleSubmit} className="flex items-center p-4 bg-gray-100">
+        <select
+          className="flex-1 p-2 mr-2 text-lg border border-gray-300 rounded-lg"
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
-          placeholder="Type your question..."
-        />
-        <input
-          className="p-5 m-5 text-2xl font-bold text-center bg-gray-100 rounded-xl text-black focus:outline-none"
-          type="text"
+        >
+          <option value="">Select an option</option>
+          <option value="Explain to 7 year old">Explain to 7 year old</option>
+          <option value="Summarize">Summarize</option>
+        </select>
+        <textarea
+          className="flex-1 p-2 mr-2 text-lg border border-gray-300 rounded-lg resize-none"
           autoComplete="off"
           value={prompt}
           onChange={(event) => setPrompt(event.target.value)}
-          placeholder="Type your prompt..."
+          placeholder="Enter your prompt"
         />
-        <button className="p-4 bg-blue-500 text-white font-bold rounded-xl" type="submit">
-          Send
+        <button
+          type="submit"
+          className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+        >
+          Submit
         </button>
       </form>
-  
-      {loading ? (
-        <div className="text-center mt-4">Loading...</div>
-      ) : (
-        <div>{data}</div>
-      )}
     </div>
   </main>
-  
   );
 }
