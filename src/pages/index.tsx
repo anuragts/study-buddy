@@ -1,10 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { Loading } from "@nextui-org/react";
 
 export default function Home() {
   const [question, setQuestion] = useState<string>("");
   const [prompt, setPrompt] = useState<string>("");
-  const [data, setData] = useState<string>("Nothing here now !");
+  const [data, setData] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,8 +25,25 @@ export default function Home() {
 
   return (
     <main className="flex flex-col h-screen">
+    <header className="bg-blue-500 p-4 flex justify-center items-center">
+      <h1 className="text-white text-2xl font-bold">Study buddy</h1>
+    </header>
     <div className="flex-1 overflow-y-auto p-4">
-      {loading ? <div>Loading...</div> : <div className="text-xl">{data}</div>}
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <Loading size="xl">Loading</Loading>
+        </div>
+      ) : (
+        <div>
+          {data ? (
+            <div className="text-2xl my-5 px-2 py-3 bg-slate-100">{data}</div>
+          ) : (
+            <div className="bg-slate-100 text-2xl flex justify-center items-center h-screen">
+              Try now.
+            </div>
+          )}
+        </div>
+      )}
     </div>
     <div className="flex-none">
       <form onSubmit={handleSubmit} className="flex items-center p-4 bg-gray-100">
@@ -34,7 +52,6 @@ export default function Home() {
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
         >
-          <option value="">Select an option</option>
           <option value="Explain to 7 year old">Explain to 7 year old</option>
           <option value="Summarize">Summarize</option>
         </select>
@@ -54,5 +71,7 @@ export default function Home() {
       </form>
     </div>
   </main>
+  
+  
   );
 }
