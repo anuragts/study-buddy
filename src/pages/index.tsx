@@ -54,7 +54,7 @@ export default function Home() {
         >
           <option value="Explain to 7 year old">Explain to 7 year old</option>
           <option value="Summarize">Summarize</option>
-          <option value="Counsellor/ChatBot">Counsellor/ChatBot</option>
+          <option value="Fun ChatBot">Fun ChatBot</option>
         </select>
         <textarea
           className="flex-1 p-2 mr-2 text-lg border border-gray-300 rounded-lg resize-none"
