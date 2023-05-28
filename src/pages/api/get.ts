@@ -12,7 +12,7 @@ export default async (req:NextApiRequest,res:NextApiResponse) =>{
 
     const { question, prompt }:Input = req.body;
 
-    const premessage :string = 'You are study buddy , you will help students with studies. Give me answer of following question.'
+    const premessage :string = 'You are study buddy , you will help students with studies. Do not use this "As an  AI language model" Give me answer of following question.'
     const postmessage :string = `${question} , ${prompt}`
 
     const response = await openAi.createChatCompletion({
